@@ -38,15 +38,17 @@ class Request extends React.Component{
 
     onClickDay(value, e){
         let selectFecha = new Date(value)
-        this.setState({day:selectFecha.getDay()})
-        this.setState({date:selectFecha.getDate()})
-        this.setState({month:selectFecha.getMonth()})
-        this.setState({year:selectFecha.getFullYear()})
+        
+        let day = selectFecha.getDay();
+        let date =  selectFecha.getDate();
+        let month = selectFecha.getMonth()+1;
+        let year = selectFecha.getFullYear();
 
-        console.log(selectFecha.getDay())
-        console.log(selectFecha.getDate())
-        console.log(selectFecha.getMonth())
-        console.log(selectFecha.getFullYear())
+        this.setState({day:day})
+        this.setState({date:date})
+        this.setState({month:month})
+        this.setState({year:year})
+        this.setState({fecha: date+'-'+month+'-'+year})
     }
 
     render(){
