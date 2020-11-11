@@ -1,24 +1,30 @@
 import React from 'react'
 import Form from './components/form/form.js'
-
+import ReactCalendar from 'react-calendar'
+let date = new Date()
 class Request extends React.Component{
 
     constructor(){
         super();
         this.state={
-            year:new Date().getFullYear(),
-            petName: '',
-            work:'',
-            customerName:'',
+            fecha: '',
+            day: 0 ,
+            date: 0 ,
+            month: 0,
+            year: 0,
+            time: 0 ,
+            work: '',
+            petName:'' ,
+            customerName:'' ,
             phoneNumber: 0,
-            customerAdress: '',
-            customerEmail: ''
+            customerAdress:'' ,
+            customerEmail:''
         }
         this.sendRequest = this.sendRequest.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onClickDay = this.onClickDay.bind(this);
     }
-        
+
     sendRequest(e){
         console.log(this.state)
         e.preventDefault()
@@ -31,14 +37,23 @@ class Request extends React.Component{
     }
 
     onClickDay(value, e){
+        let selectFecha = new Date(value)
+        this.setState({day:selectFecha.getDay()})
+        this.setState({date:selectFecha.getDate()})
+        this.setState({month:selectFecha.getMonth()})
+        this.setState({year:selectFecha.getFullYear()})
 
+        console.log(selectFecha.getDay())
+        console.log(selectFecha.getDate())
+        console.log(selectFecha.getMonth())
+        console.log(selectFecha.getFullYear())
     }
 
     render(){
         return(
             <>
                 <h1>Pantalla para tomar turno</h1>
-                <Form sendRequest = {this.sendRequest} handleChange={this.handleChange}></Form>
+                <Form sendRequest = {this.sendRequest} handleChange={this.handleChange} onClickDay= {this.onClickDay}></Form>
             </>
         )
     }

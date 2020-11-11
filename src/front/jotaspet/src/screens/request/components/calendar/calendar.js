@@ -5,7 +5,7 @@ class Calendar extends React.Component{
     render(){
         return(
             <div className="calendar">
-                <ReactCalendar onClickDay = { this.props.onClickDay }/>
+                <ReactCalendar onClickDay = { this.props.onClickDay} />
             </div>
         )
     }

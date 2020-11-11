@@ -1,6 +1,6 @@
 import React from 'react'
 import Calendar from '../calendar/calendar.js';
-let date = new Date();
+
 class form extends React.Component{
     render(){
         return(
@@ -30,10 +30,7 @@ class form extends React.Component{
 
                 <div>
                     <p>escoge tu turno</p>
-                    <Calendar onClickDay = {(value, e)=>{
-                        console.log(e.target);
-                        console.log(value)
-                    }}/>
+                    <Calendar onClickDay = {this.props.onClickDay}/>
                 </div>
 
                 <button type="submit" onChange={this.props.handleChange} name="" className=""></button>
