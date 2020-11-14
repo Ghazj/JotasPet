@@ -8,8 +8,8 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 //Middlewares
- app.use(morgan('dev'));
- app.use(express.json())
+app.use(morgan('dev'));
+app.use(express.json())
 app.use(cors())
 //Routes
 app.use('/api/turnos',require('./routes/turnos.routes.js'));

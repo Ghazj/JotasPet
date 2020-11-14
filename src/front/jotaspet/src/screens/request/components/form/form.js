@@ -4,7 +4,7 @@ import Calendar from '../calendar/calendar.js';
 class form extends React.Component{
     render(){
         return(
-            <form onSubmit={this.props.sendRequest}>
+            <form onSubmit={this.props.handleSend}>
                 <div>
                     <input onChange={this.props.handleChange} name="petName" className="input"  type="text" placeholder="Pet Name"/>
                 </div>
