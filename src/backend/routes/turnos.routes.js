@@ -8,11 +8,17 @@ router.get('/', async (req, res)=>{
    res.json(turnos)
 });
 
-router.get('/:id', async (req, res)=>{
-    const turnos = await Turnos.findById(req.params.id);
+router.get('/:name', async (req, res)=>{
+    const turnos = await Turnos.findById(req.params.name);
     console.log(turnos)
     res.json(turnos)
- });
+});
+
+ router.get('/:petName', async (req, res)=>{
+    const turnos = await Turnos.find(req.params.petName);
+    console.log(turnos)
+    res.json(turnos)
+});
 
 router.post('/', async (req, res)=>{
     await Turnos.create(req.body)

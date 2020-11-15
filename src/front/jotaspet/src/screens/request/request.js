@@ -19,29 +19,46 @@ class Request extends React.Component{
             phoneNumber: 0,
             customerAdress:'' ,
             customerEmail:'',
-            turnosActuales: {}
+            turnosActuales: [],
+            turnosHoy: [],
+            selectDayTurns: []
         }
+
         this.handleSend = this.handleSend.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onClickDay = this.onClickDay.bind(this);
     }
-    
+
+    //Funcion que filtra los turnos de un array que hay en un fecha indicada
+    filterTurnos(array, fecha){
+        return array.filter(obj => obj.fecha === fecha);
+    }
+
+    //Función que obtiene los turnos de la DB y lo coloca en el state del componente
     getTurnos = async () => {
         const res = await fetchTurnos();
         this.setState({turnosActuales: res.data});
     }
 
-     async componentDidMount() {
-        await this.getTurnos();
-        console.log(this.state.turnosActuales);
+    //Función que coloca en el state del componente los turnos que hay en la fecha real de la ejecución de este (De forma automática);
+    getTurnosHoy = async (actuallyDate) => {
+        const res = await fetchTurnos();
+        const turnosHoy = this.filterTurnos(res.data, "27-11-2020");
+        this.setState({ turnosHoy: turnosHoy })
     }
 
+     async componentDidMount() {
+        await this.getTurnos();
+        await this.getTurnosHoy()
+    }
+
+    //Función que captura los cambios ocurridos en los campos del Form y los guarda en el state
     handleChange(e){
         let {name, value} = e.target;
-        console.log(e);
         this.setState({[name]: value})
     }
-            
+
+    //Función que captura los cambios ocurridos en el calendar y los guarda en el state. day, date, month, year. También guarda en el state los turnos del día seleccionado en el calendar.       
     onClickDay(value, e){
         let selectFecha = new Date(value)
         let day = selectFecha.getDay();
@@ -54,32 +71,46 @@ class Request extends React.Component{
         this.setState({month:month})
         this.setState({year:year})
         this.setState({fecha: date+'-'+month+'-'+year})
+
+        this.setState({ selectDayTurns: this.filterTurnos(this.state.turnosActuales, date+'-'+month+'-'+year) })
     }
-    
+
+    //Función que hace un método post a la Api y postea un nuevo turno.
     postTurn = async (data) => {
         await postTurn(data)
         console.log('turno enviado con exito')
     }
 
-    handleSend(e){
+    //Función que toma la data que se va a enviar con el post del turno. Valida las condiciones para que se envíe el turno y llama al método postTurn una vez pasada las validaciones.
+    handleSend = async (e) => {
         e.preventDefault()
-        console.log(this.state);
+        const { fecha, day, date, month, year, time, work, petName , customerName, phoneNumber, customerAdress, customerEmail } = this.state;
         const data = {
-            fecha: this.state.fecha,
-            day: this.state.day,
-            date: this.state.date ,
-            month: this.state.month,
-            year: this.state.year,
-            time: this.state.time,
-            work: this.state.work,
-            petName: this.state.petName,
-            customerName: this.state.customerName,
-            phoneNumber: this.state.phoneNumber,
-            customerAdress: this.state.customerAdress,
-            customerEmail: this.state.customerEmail
+            fecha: fecha,
+            day: day,
+            date: date ,
+            month: month,
+            year: year,
+            time: time,
+            work: work,
+            petName: petName,
+            customerName: customerName,
+            phoneNumber: phoneNumber,
+            customerAdress: customerAdress,
+            customerEmail: customerEmail
         }
-        console.log(this.state.turnosActuales)
-        this.postTurn(data);
+
+        if(this.state.selectDayTurns.length >= 6){
+            alert('Ya no hay turnos disponibles el día seleccionado');
+        }else if(fecha === '' || work === '' || work === '----' || petName === '' || customerName === '' || customerAdress === '' || customerEmail === ''){
+            alert('Debe Completar todos los campos.');
+        }else if(day === 0 || date === 0 || month === 0 || year === 0 || phoneNumber === 0){
+            alert('Debe Completar todos los campos.');
+        }else{
+            this.postTurn(data);
+            alert('Turno confirmado con éxito.');
+            await this.getTurnos();
+        }
     }
     
     render(){

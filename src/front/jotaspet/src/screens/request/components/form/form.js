@@ -11,6 +11,7 @@ class form extends React.Component{
                 <div>
                     <p>Qué quieres hacer?</p>
                     <select name="work" onChange={this.props.handleChange}>
+                        <option>{'----'}</option>
                         <option>Baño</option>
                         <option>Corte</option>
                     </select>
