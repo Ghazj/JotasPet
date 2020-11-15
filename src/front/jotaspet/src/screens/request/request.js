@@ -2,6 +2,7 @@ import React from 'react';
 import Form from './components/form/form.js';
 import { fetchTurnos } from '../../apis/fetchTurnos.js';
 import { postTurn } from '../../apis/postTurn.js';
+import { fetchTurnosSelectDay } from '../../apis/fetchTurnosSelectDay.js';
 
 class Request extends React.Component{
     constructor(){
@@ -29,11 +30,6 @@ class Request extends React.Component{
         this.onClickDay = this.onClickDay.bind(this);
     }
 
-    //Funcion que filtra los turnos de un array que hay en un fecha indicada
-    filterTurnos(array, fecha){
-        return array.filter(obj => obj.fecha === fecha);
-    }
-
     //Función que obtiene los turnos de la DB y lo coloca en el state del componente
     getTurnos = async () => {
         const res = await fetchTurnos();
@@ -42,14 +38,17 @@ class Request extends React.Component{
 
     //Función que coloca en el state del componente los turnos que hay en la fecha real de la ejecución de este (De forma automática);
     getTurnosHoy = async (actuallyDate) => {
-        const res = await fetchTurnos();
-        const turnosHoy = this.filterTurnos(res.data, "27-11-2020");
-        this.setState({ turnosHoy: turnosHoy })
+        const res = await fetchTurnosSelectDay(actuallyDate)
+        console.log(res.data);
+    }
+    //Función que obtiene los turnos de la DB filtrados a gusto. pasando por parametros un objetos con datos a tener en cuenta para el filtrado de los turnos. EJEMPLO: {fecha: "15-11-2020"} o {day: 4, petName: "Nami"}
+    fetchTurnosSelectDay = async (data) =>{
+        const res = await fetchTurnosSelectDay(data)
+        this.setState({selectDayTurns: res.data});
     }
 
-     async componentDidMount() {
+    async componentDidMount() {
         await this.getTurnos();
-        await this.getTurnosHoy()
     }
 
     //Función que captura los cambios ocurridos en los campos del Form y los guarda en el state
@@ -71,8 +70,7 @@ class Request extends React.Component{
         this.setState({month:month})
         this.setState({year:year})
         this.setState({fecha: date+'-'+month+'-'+year})
-
-        this.setState({ selectDayTurns: this.filterTurnos(this.state.turnosActuales, date+'-'+month+'-'+year) })
+        this.fetchTurnosSelectDay({fecha: date+'-'+month+'-'+year})
     }
 
     //Función que hace un método post a la Api y postea un nuevo turno.
@@ -81,7 +79,7 @@ class Request extends React.Component{
         console.log('turno enviado con exito')
     }
 
-    //Función que toma la data que se va a enviar con el post del turno. Valida las condiciones para que se envíe el turno y llama al método postTurn una vez pasada las validaciones.
+    //Función que toma la data que se va a enviar con el post del turno. Valida las condiciones para que se envíe el turno e invoca al método postTurn una vez pasada las validaciones.
     handleSend = async (e) => {
         e.preventDefault()
         const { fecha, day, date, month, year, time, work, petName , customerName, phoneNumber, customerAdress, customerEmail } = this.state;

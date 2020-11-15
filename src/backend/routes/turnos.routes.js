@@ -3,21 +3,21 @@ const router = express.Router();
 const Turnos = require('../models/turnos.js');
 
 router.get('/', async (req, res)=>{
-   const turnos = await Turnos.find();
-   console.log(turnos)
-   res.json(turnos)
+    if(Object.keys(req.query).length > 0){
+        console.log(req.query);
+        const turnos = await Turnos.find(req.query);
+        res.json(turnos)
+    }else{
+        console.log(req.query);
+        const turnos = await Turnos.find();
+        res.json(turnos)
+    }
 });
 
-router.get('/:name', async (req, res)=>{
-    const turnos = await Turnos.findById(req.params.name);
-    console.log(turnos)
+router.get('/:id', async (req, res)=>{
+    const turnos = await Turnos.findById(req.params.id);
     res.json(turnos)
-});
-
- router.get('/:petName', async (req, res)=>{
-    const turnos = await Turnos.find(req.params.petName);
-    console.log(turnos)
-    res.json(turnos)
+    console.log(req)
 });
 
 router.post('/', async (req, res)=>{
