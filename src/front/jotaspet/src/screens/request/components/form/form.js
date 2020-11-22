@@ -34,7 +34,7 @@ class form extends React.Component{
                     <Calendar onClickDay = {this.props.onClickDay}/>
                 </div>
 
-                <button type="submit" onChange={this.props.handleChange} name="" className=""></button>
+                <button type="submit" onChange={this.props.handleChange} name="" className="">Enviar turno</button>
 
             </form>
         )

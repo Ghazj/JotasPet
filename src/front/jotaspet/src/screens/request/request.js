@@ -9,12 +9,12 @@ class Request extends React.Component{
         super();
         this.state={
             fecha: '',
-            day: 0 ,
-            date: 0 ,
+            day: null,
+            date: 0,
             month: 0,
             year: 0,
             time: 0 ,
-            work: '',
+            work: '----',
             petName:'' ,
             customerName:'' ,
             phoneNumber: 0,
@@ -41,14 +41,15 @@ class Request extends React.Component{
         const res = await fetchTurnosSelectDay(actuallyDate)
         console.log(res.data);
     }
+
     //Función que obtiene los turnos de la DB filtrados a gusto. pasando por parametros un objetos con datos a tener en cuenta para el filtrado de los turnos. EJEMPLO: {fecha: "15-11-2020"} o {day: 4, petName: "Nami"}
     fetchTurnosSelectDay = async (data) =>{
         const res = await fetchTurnosSelectDay(data)
         this.setState({selectDayTurns: res.data});
     }
 
+    //Función que se ejecuta apenas se carga la aplicación. suele tener otras funciones dentro.
     async componentDidMount() {
-        await this.getTurnos();
     }
 
     //Función que captura los cambios ocurridos en los campos del Form y los guarda en el state
@@ -58,7 +59,7 @@ class Request extends React.Component{
     }
 
     //Función que captura los cambios ocurridos en el calendar y los guarda en el state. day, date, month, year. También guarda en el state los turnos del día seleccionado en el calendar.       
-    onClickDay(value, e){
+    async onClickDay(value, e){
         let selectFecha = new Date(value)
         let day = selectFecha.getDay();
         let date =  selectFecha.getDate();
@@ -70,13 +71,11 @@ class Request extends React.Component{
         this.setState({month:month})
         this.setState({year:year})
         this.setState({fecha: date+'-'+month+'-'+year})
-        this.fetchTurnosSelectDay({fecha: date+'-'+month+'-'+year})
     }
 
     //Función que hace un método post a la Api y postea un nuevo turno.
     postTurn = async (data) => {
-        await postTurn(data)
-        console.log('turno enviado con exito')
+        await postTurn(data);
     }
 
     //Función que toma la data que se va a enviar con el post del turno. Valida las condiciones para que se envíe el turno e invoca al método postTurn una vez pasada las validaciones.
@@ -98,12 +97,17 @@ class Request extends React.Component{
             customerEmail: customerEmail
         }
 
-        if(this.state.selectDayTurns.length >= 6){
+        await this.fetchTurnosSelectDay({fecha: date+'-'+month+'-'+year});
+        console.log(this.state);
+        
+        if(fecha === '' ||  work === '----' || petName === '' || customerName === '' || customerAdress === '' || customerEmail === ''){
+            console.log('error 1');
+            alert('Debe Completar todos los campos.');
+        }else if(day === null || date === 0 || month === 0 || year === 0 || phoneNumber === 0){
+            console.log('error 2');
+            alert('Debe Completar todos los campos.');
+        }else if(this.state.selectDayTurns.length >= 6){
             alert('Ya no hay turnos disponibles el día seleccionado');
-        }else if(fecha === '' || work === '' || work === '----' || petName === '' || customerName === '' || customerAdress === '' || customerEmail === ''){
-            alert('Debe Completar todos los campos.');
-        }else if(day === 0 || date === 0 || month === 0 || year === 0 || phoneNumber === 0){
-            alert('Debe Completar todos los campos.');
         }else{
             this.postTurn(data);
             alert('Turno confirmado con éxito.');
