@@ -101,10 +101,8 @@ class Request extends React.Component{
         console.log(this.state);
         
         if(fecha === '' ||  work === '----' || petName === '' || customerName === '' || customerAdress === '' || customerEmail === ''){
-            console.log('error 1');
             alert('Debe Completar todos los campos.');
         }else if(day === null || date === 0 || month === 0 || year === 0 || phoneNumber === 0){
-            console.log('error 2');
             alert('Debe Completar todos los campos.');
         }else if(day === 0){
             alert('No hay turnos disponibles los días domingo y feriados.')
