@@ -106,6 +106,8 @@ class Request extends React.Component{
         }else if(day === null || date === 0 || month === 0 || year === 0 || phoneNumber === 0){
             console.log('error 2');
             alert('Debe Completar todos los campos.');
+        }else if(day === 0){
+            alert('No hay turnos disponibles los días domingo y feriados.')
         }else if(this.state.selectDayTurns.length >= 6){
             alert('Ya no hay turnos disponibles el día seleccionado');
         }else{
