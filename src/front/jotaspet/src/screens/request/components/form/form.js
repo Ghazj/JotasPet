@@ -1,7 +1,29 @@
 import React from 'react'
-import Calendar from '../calendar/calendar.js';
+import Calendar from '../../../../globalComponents/calendar.js';
 
 class form extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            fechaHoy: new Date()
+        }
+    }
+
+    maxDate(){
+        const twoWeeksInMiliseconds = 1209600033.2;
+        const fechaHoyEnMilisegundos = this.state.fechaHoy.getTime();
+        const maxDate = new Date(twoWeeksInMiliseconds + fechaHoyEnMilisegundos);
+        return maxDate;
+    }
+
+    minDate(){
+        const oneDayInMiliseconds = 86400000;
+        const fechaHoyEnMilisegundos = this.state.fechaHoy.getTime();
+        const minDate = new Date(oneDayInMiliseconds + fechaHoyEnMilisegundos)
+        return minDate;
+    }
+
+
     render(){
         return(
             <form onSubmit={this.props.handleSend}>
@@ -31,7 +53,7 @@ class form extends React.Component{
 
                 <div>
                     <p>escoge tu turno</p>
-                    <Calendar onClickDay = {this.props.onClickDay}/>
+                    <Calendar onClickDay = {this.props.onClickDay} maxDate = {this.maxDate()} minDate = {this.minDate()}/>
                 </div>
 
                 <button type="submit" onChange={this.props.handleChange} name="" className="">Enviar turno</button>
