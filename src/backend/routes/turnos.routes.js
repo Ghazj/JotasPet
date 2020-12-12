@@ -4,20 +4,19 @@ const Turnos = require('../models/turnos.js');
 
 router.get('/', async (req, res)=>{
     if(Object.keys(req.query).length > 0){
-        console.log(req.query);
-        const turnos = await Turnos.find(req.query);
-        res.json(turnos)
+        const turnos = await Turnos.find(req.query)
+        .exec()
+        .then(x => res.status(200).send(x));
     }else{
-        console.log(req.query);
-        const turnos = await Turnos.find();
-        res.json(turnos)
+        const turnos = await Turnos.find()
+        .exec()
+        .then(x => res.status(200).send(x));
     }
 });
 
 router.get('/:id', async (req, res)=>{
     const turnos = await Turnos.findById(req.params.id);
-    res.json(turnos)
-    console.log(req)
+    res.json(turnos);
 });
 
 router.post('/', async (req, res)=>{

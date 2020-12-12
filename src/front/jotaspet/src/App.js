@@ -11,10 +11,10 @@ function App() {
         <Route exact path='/'>
           <Principal />
         </Route>
-        <Route path='/turnos'>
+        <Route exact path='/turnos'>
           <Request />
         </Route>
-        <Route path='/consulta'>
+        <Route exact path='/consulta'>
           <Consulta />
         </Route>
       </Switch>  
