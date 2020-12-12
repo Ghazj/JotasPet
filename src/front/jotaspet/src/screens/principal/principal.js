@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import TopBar from './components/topBar/topBar.js'
+
 
 class Principal extends React.Component{
     render(){
         return(
             <div>
-                <Link to='/turnos'>
-                    <button>Solicitar turno</button>
-                </Link>
+                <TopBar></TopBar>
                 <h1>Pantalla principal</h1>
             </div>
         )
