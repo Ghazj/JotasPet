@@ -3,16 +3,21 @@ const router = express.Router();
 const Turnos = require('../models/turnos.js');
 
 router.get('/', async (req, res)=>{
-   const turnos = await Turnos.find();
-   console.log(turnos)
-   res.json(turnos)
+    if(Object.keys(req.query).length > 0){
+        const turnos = await Turnos.find(req.query)
+        .exec()
+        .then(x => res.status(200).send(x));
+    }else{
+        const turnos = await Turnos.find()
+        .exec()
+        .then(x => res.status(200).send(x));
+    }
 });
 
 router.get('/:id', async (req, res)=>{
     const turnos = await Turnos.findById(req.params.id);
-    console.log(turnos)
-    res.json(turnos)
- });
+    res.json(turnos);
+});
 
 router.post('/', async (req, res)=>{
     await Turnos.create(req.body)
