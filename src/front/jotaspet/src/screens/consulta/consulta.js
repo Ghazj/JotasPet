@@ -41,7 +41,6 @@ class Consulta extends React.Component{
                 <h1>{this.state.fechaActual.getDate() + '-' + (this.state.fechaActual.getMonth() + 1) + '-' + this.state.fechaActual.getFullYear()}</h1>
                 <h2>calendario para cambiar los turnos</h2>
                 <Calendar onClickDay = {this.onClickDay}></Calendar>
-                <h2>Listado de turnos</h2>
                 <Listado turnosEnPantalla={this.state.turnosEnPantalla}></Listado>
             </>
         )

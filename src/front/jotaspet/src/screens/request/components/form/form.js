@@ -1,5 +1,6 @@
 import React from 'react'
 import Calendar from '../../../../globalComponents/calendar.js';
+import './form.css';
 
 class form extends React.Component{
     constructor(props){

@@ -3,6 +3,7 @@ import Form from './components/form/form.js';
 import { fetchTurnos } from '../../apis/fetchTurnos.js';
 import { postTurn } from '../../apis/postTurn.js';
 import { fetchTurnosSelectDay } from '../../apis/fetchTurnosSelectDay.js';
+import './request.css';
 
 class Request extends React.Component{
     constructor(){
