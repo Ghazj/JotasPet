@@ -119,9 +119,8 @@ class Request extends React.Component{
     render(){
         return(
             <>
-                <h1>Pantalla para tomar turno</h1>
                 <Form handleSend = {this.handleSend} handleChange={this.handleChange} onClickDay= {this.onClickDay}></Form>
-            </>
+            </>    
         )
     }
 }

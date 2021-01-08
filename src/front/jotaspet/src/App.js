@@ -7,6 +7,7 @@ import Consulta from './screens/consulta/consulta.js';
 
 function App() {
   return (
+  <div className="vidrio" >
     <div className="App">
       <div className="background-pic-container" />
       <Switch>
@@ -21,6 +22,7 @@ function App() {
         </Route>
       </Switch>  
     </div>
+  </div>  
   );
 }
 

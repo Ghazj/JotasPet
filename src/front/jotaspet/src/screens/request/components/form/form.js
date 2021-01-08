@@ -27,16 +27,18 @@ class form extends React.Component{
 
     render(){
         return(
-            <form onSubmit={this.props.handleSend}>
+        <div className="form-container">
+            <form onSubmit={this.props.handleSend} className="form">
+                <h2 className="h2">Toma tu turno!</h2>
                 <div>
                     <input onChange={this.props.handleChange} name="petName" className="input"  type="text" placeholder="Pet Name"/>
                 </div>
                 <div>
-                    <p>Qué quieres hacer?</p>
-                    <select name="work" onChange={this.props.handleChange}>
-                        <option>{'----'}</option>
-                        <option>Baño</option>
-                        <option>Corte</option>
+                    <h4 className="h4">Qué quieres hacer?</h4>
+                    <select className="select" name="work" onChange={this.props.handleChange}>
+                        <option className="option">{'----'}</option>
+                        <option className="option">Baño</option>
+                        <option className="option">Corte</option>
                     </select>
                 </div>
                 <div>
@@ -53,13 +55,15 @@ class form extends React.Component{
                 </div>
 
                 <div>
-                    <p>escoge tu turno</p>
+                    <h4 className="h4">Escoge tu turno</h4>
                     <Calendar onClickDay = {this.props.onClickDay} maxDate = {this.maxDate()} minDate = {this.minDate()}/>
                 </div>
-
-                <button type="submit" onChange={this.props.handleChange} name="" className="">Enviar turno</button>
+                <div className="button-container">
+                    <button type="submit" onChange={this.props.handleChange} name="" className="button">Enviar turno</button>
+                </div>
 
             </form>
+        </div>    
         )
     }
 }

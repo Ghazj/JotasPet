@@ -1,8 +1,8 @@
 body {
-  background: -webkit-linear-gradient(to right, #4286f48a, #373b4478) url('./assets/Background\ pic.jpg');  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #4286f46e, #373b447a), url('./assets/Background\ pic.jpg'); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to right, #4286f460, #373b445e) url('./assets/Background\ pic.jpg');  /* Chrome 10-25, Safari 5.1-6 */
+  background: url('./assets/Background\ pic.jpg'); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background-position: center; /* Center the image */
-  background-repeat: repeat; /* Do not repeat the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 
 
@@ -11,6 +11,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  margin: 0;
 }
 
 code {
