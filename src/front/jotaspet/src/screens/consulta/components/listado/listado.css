@@ -1,4 +1,25 @@
+.listado{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .turnCard{
-    border: solid blue;
-    margin-bottom: 5px;
+    margin: 20px;
+    background-color: #ffffff5e;
+    width: 470px;
+    margin-inline: auto;
+    border: solid blue 2px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.list-title{
+    margin: 20px;
+    background-color: #ffffff5e;
+    width: 470px;
+    margin-inline: auto;
+    border: solid blue 2px;
+    border-radius: 20px;
+    padding: 5px;
 }

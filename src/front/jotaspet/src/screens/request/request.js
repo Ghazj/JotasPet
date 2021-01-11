@@ -4,6 +4,7 @@ import { fetchTurnos } from '../../apis/fetchTurnos.js';
 import { postTurn } from '../../apis/postTurn.js';
 import { fetchTurnosSelectDay } from '../../apis/fetchTurnosSelectDay.js';
 import './request.css';
+import logo from '../../assets/Logo Jotas (2).png';
 
 class Request extends React.Component{
     constructor(){
@@ -118,9 +119,33 @@ class Request extends React.Component{
     
     render(){
         return(
-            <>
-                <Form handleSend = {this.handleSend} handleChange={this.handleChange} onClickDay= {this.onClickDay}></Form>
-            </>    
+            <div className="request">
+                <div className="logoAndPresentation-section">
+                    <img alt="Logo Jotas Pet" src={logo} className="logo"/>
+                    <div className="text-container">
+                        <h1 className="title">
+                            Bienvenido!!
+                        </h1>
+                        <p className="parrafo">
+                            Completa el siguiente formulario para tomar turno de peluquería.<br/><br/>La disponibilidad es de Lunes a Sábados.
+
+
+
+                            <h3>
+                                Contáctanos:
+                            </h3>
+                            <ul>
+                                <li>Whatsapp</li>
+                                <li>Instagram</li>
+                                <li>Facebook</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+                <div className="form-section">
+                    <Form handleSend = {this.handleSend} handleChange={this.handleChange} onClickDay= {this.onClickDay}></Form>
+                </div>
+            </div>    
         )
     }
 }

@@ -1,0 +1,15 @@
+.consulta{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.actual-date{
+    margin: 20px;
+    background-color: #ffffff5e;
+    width: 470px;
+    margin-inline: auto;
+    border: solid blue 2px;
+    border-radius: 20px;
+    padding: 5px;
+}

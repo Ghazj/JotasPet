@@ -2,6 +2,7 @@ import React from 'react';
 import Listado from './components/listado/listado.js';
 import { fetchTurnosSelectDay } from '../../apis/fetchTurnosSelectDay.js';
 import Calendar from '../../globalComponents/calendar.js';
+import './consulta.css';
 
 class Consulta extends React.Component{
     constructor(props){
@@ -37,12 +38,12 @@ class Consulta extends React.Component{
 
     render(){
         return(
-            <>
-                <h1>{this.state.fechaActual.getDate() + '-' + (this.state.fechaActual.getMonth() + 1) + '-' + this.state.fechaActual.getFullYear()}</h1>
-                <h2>calendario para cambiar los turnos</h2>
+            <div className="consulta">
+                <h1 className="actual-date">{'Fecha Actual: '+this.state.fechaActual.getDate() + '-' + (this.state.fechaActual.getMonth() + 1) + '-' + this.state.fechaActual.getFullYear()}</h1>
                 <Calendar onClickDay = {this.onClickDay}></Calendar>
+                <h1 className="actual-date">{'Fecha Actual: '+ this.state.selectFecha}</h1>
                 <Listado turnosEnPantalla={this.state.turnosEnPantalla}></Listado>
-            </>
+            </div>
         )
     }
 }

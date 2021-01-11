@@ -1,14 +1,9 @@
 .App {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.vidrio{
-  background: #26253575;
-  width: 100%;
-  height: 100%;
+.logo{
+
 }
 
 .App-logo {
@@ -44,8 +39,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.background-pic-container{
-  
 }

@@ -1,5 +1,4 @@
 import './App.css';
-import backgroundPic from './assets/Background pic.jpg';
 import { Switch, Route } from "react-router-dom";
 import Principal from './screens/principal/principal';
 import Request from './screens/request/request';
@@ -7,9 +6,7 @@ import Consulta from './screens/consulta/consulta.js';
 
 function App() {
   return (
-  <div className="vidrio" >
     <div className="App">
-      <div className="background-pic-container" />
       <Switch>
 {        /*<Route exact path='/'>
           <Principal />
@@ -22,7 +19,6 @@ function App() {
         </Route>
       </Switch>  
     </div>
-  </div>  
   );
 }
 
