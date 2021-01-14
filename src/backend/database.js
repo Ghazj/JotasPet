@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URI = 'mongodb://localhost/jotaspet';
+const URI = 'mongodb+srv://jotaspet:2uVeufqw96TLqh5M@cluster0.dhern.mongodb.net/jotaspet?retryWrites=true&w=majority';
 
 mongoose.connect(URI, {
     useNewUrlParser: true,

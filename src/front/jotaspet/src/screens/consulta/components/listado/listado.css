@@ -2,16 +2,18 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .turnCard{
-    margin: 20px;
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff5e;
-    width: 470px;
-    margin-inline: auto;
+    width: 450px;
     border: solid blue 2px;
     border-radius: 20px;
-    padding: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
 }
 
 .list-title{
