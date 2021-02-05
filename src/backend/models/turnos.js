@@ -13,6 +13,7 @@ const TurnoModel = new Schema({
     work: {type: String, required: true},
     petName: {type: String, required: true},
     customerName: {type: String, required: true},
+    dni: {type: Number, required: true},
     phoneNumber: {type: Number, required: true},
     customerAdress: {type: String, required: true},
     customerEmail: {type: String, required: true}

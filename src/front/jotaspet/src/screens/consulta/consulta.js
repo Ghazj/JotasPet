@@ -18,6 +18,7 @@ class Consulta extends React.Component{
     fetchTurnosSelectDay = async (data) =>{
         const res = await fetchTurnosSelectDay(data);
         this.setState({turnosEnPantalla: res.data});
+        console.log(res.data)
     }
 
     async componentDidMount() {
@@ -39,9 +40,9 @@ class Consulta extends React.Component{
     render(){
         return(
             <div className="consulta">
-                <h1 className="actual-date">{'Fecha Actual: '+this.state.fechaActual.getDate() + '-' + (this.state.fechaActual.getMonth() + 1) + '-' + this.state.fechaActual.getFullYear()}</h1>
+                <h3 className="actual-date">{'Fecha: '+this.state.fechaActual.getDate() + '-' + (this.state.fechaActual.getMonth() + 1) + '-' + this.state.fechaActual.getFullYear()}</h3>
                 <Calendar onClickDay = {this.onClickDay}></Calendar>
-                <h1 className="actual-date">{'Fecha Actual: '+ this.state.selectFecha}</h1>
+                <h3 className="actual-date">{'Fecha mostrada: '+ this.state.selectFecha}</h3>
                 <Listado turnosEnPantalla={this.state.turnosEnPantalla}></Listado>
             </div>
         )

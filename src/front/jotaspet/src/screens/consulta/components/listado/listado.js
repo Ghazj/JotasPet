@@ -25,20 +25,26 @@ class Listado extends React.Component{
     render(){
         return(
             <>
-            <h1 className="list-title">{'Listado de turnos: ' + this.props.turnosEnPantalla.length}</h1>
+            <h3 className="list-title">{'Listado de turnos: ' + this.props.turnosEnPantalla.length}</h3>
             <div className="listado">
                 {this.props.turnosEnPantalla.map((turn, i)=>(
                         <div className="turnCard" key={i}>       
-                                <h1>#{i+1}</h1>
-                                <h1>{turn.petName} - {turn.work}</h1>
-                                <h2>Dueño:<br/>{turn.customerName}</h2>
-                                <h2>Dirección: {turn.customerAdress}</h2>
-                                <h2>Teléfono: {turn.phoneNumber}</h2>
-                                <h3>Email:<br/></h3>
-                                <j>{String(turn.customerEmail)}</j>
-                                <h5>Fecha: {turn.fecha}</h5>
-                                <button>Presente</button>
-                                <button>Ausente</button>
+                            <div className="numerador-container">
+                                <h1 className="numerador">#{i+1}</h1>
+                                <h1>{turn.petName} - {turn.work}</h1><br/>
+                            </div>
+                            <div>
+                                <j><strong>Dueño:</strong> {turn.customerName}</j><br/>
+                                <j><strong>DNI:</strong> {turn.dni}</j><br/>
+                                <j><strong>Dirección:</strong> {turn.customerAdress}</j><br/>
+                                <j><strong>Teléfono:</strong> {turn.phoneNumber}</j><br/>
+                                <j><strong>Email:</strong> {turn.customerEmail}</j><br/>
+                                <j><strong>Fecha:</strong> {turn.fecha}</j>
+                                <div className="buttons-container">
+                                    <button id="confirmButton">Presente</button>
+                                    <button id="discardButton">Ausente</button>
+                                </div>
+                            </div>
                         </div>
                 ))
                 }

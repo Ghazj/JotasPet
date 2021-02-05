@@ -6,10 +6,20 @@
 
 .actual-date{
     margin: 20px;
-    background-color: #ffffff5e;
+    background-color: #ffffff71;
     width: 470px;
     margin-inline: auto;
     border: solid blue 2px;
     border-radius: 20px;
     padding: 5px;
 }
+
+@media (max-width: 500px) {
+    .consulta{
+        width: 100vw;
+    }
+
+    .actual-date{
+        width: 320px;
+    }
+  }

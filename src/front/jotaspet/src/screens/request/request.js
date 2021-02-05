@@ -19,12 +19,14 @@ class Request extends React.Component{
             work: '----',
             petName:'' ,
             customerName:'' ,
+            dni:0,
             phoneNumber: 0,
             customerAdress:'' ,
             customerEmail:'',
             turnosActuales: [],
             turnosHoy: [],
-            selectDayTurns: []
+            selectDayTurns: [],
+            disableDays: []
         }
 
         this.handleSend = this.handleSend.bind(this);
@@ -36,6 +38,7 @@ class Request extends React.Component{
     getTurnos = async () => {
         const res = await fetchTurnos();
         this.setState({turnosActuales: res.data});
+        console.log(res.data);
     }
 
     //Función que coloca en el state del componente los turnos que hay en la fecha real de la ejecución de este (De forma automática);
@@ -44,14 +47,36 @@ class Request extends React.Component{
         console.log(res.data);
     }
 
-    //Función que obtiene los turnos de la DB filtrados a gusto. pasando por parametros un objetos con datos a tener en cuenta para el filtrado de los turnos. EJEMPLO: {fecha: "15-11-2020"} o {day: 4, petName: "Nami"}
+    //Función que obtiene los turnos de la DB filtrados a gusto. pasando por parametros un objeto con datos a tener en cuenta para el filtrado de los turnos. EJEMPLO: {fecha: "15-11-2020"} o {day: 4, petName: "Nami"}
     fetchTurnosSelectDay = async (data) =>{
         const res = await fetchTurnosSelectDay(data)
-        this.setState({selectDayTurns: res.data});
+        await this.setState({selectDayTurns: res.data});
     }
 
     //Función que se ejecuta apenas se carga la aplicación. suele tener otras funciones dentro.
     async componentDidMount() {
+        await this.fetchTurnos2Semanas();
+    }
+
+    fetchTurnos2Semanas = async () => {
+        let arrayTurnsToDisable = [];
+        let fecha = new Date().getTime() + 86400000;
+        let fechaString = this.ensambladorFechaMilisegundos(fecha)
+
+        for(let i = 0; i < 14; i++){
+            await this.fetchTurnosSelectDay({ fecha: fechaString })
+            if(this.state.selectDayTurns.length >= 6){
+                arrayTurnsToDisable.push(fechaString);
+            } 
+            fecha = fecha + 86400000;
+            fechaString = this.ensambladorFechaMilisegundos(fecha);
+            }
+            this.setState({disableDays: arrayTurnsToDisable});
+    }
+
+    ensambladorFechaMilisegundos = (date) =>{
+        let fecha = new Date(date);
+        return fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear();
     }
 
     //Función que captura los cambios ocurridos en los campos del Form y los guarda en el state
@@ -60,7 +85,7 @@ class Request extends React.Component{
         this.setState({[name]: value})
     }
 
-    //Función que captura los cambios ocurridos en el calendar y los guarda en el state. day, date, month, year. También guarda en el state los turnos del día seleccionado en el calendar.       
+    //Función que captura los cambios ocurridos en el calendar y los guarda en el state. day, date, month, year. También guarda en el state los turnos del día seleccionado en el calendar.
     async onClickDay(value, e){
         let selectFecha = new Date(value)
         let day = selectFecha.getDay();
@@ -83,37 +108,37 @@ class Request extends React.Component{
     //Función que toma la data que se va a enviar con el post del turno. Valida las condiciones para que se envíe el turno e invoca al método postTurn una vez pasada las validaciones.
     handleSend = async (e) => {
         e.preventDefault()
-        const { fecha, day, date, month, year, time, work, petName , customerName, phoneNumber, customerAdress, customerEmail } = this.state;
+        const { fecha, day, date, month, year, time, work, petName , customerName, dni, phoneNumber, customerAdress, customerEmail } = this.state;
         const data = {
-            fecha: fecha,
+            fecha: fecha.toUpperCase(),
             day: day,
-            date: date ,
+            date: date,
             month: month,
             year: year,
             time: time,
-            work: work,
-            petName: petName,
-            customerName: customerName,
+            work: work.toUpperCase(),
+            petName: petName.toUpperCase(),
+            customerName: customerName.toUpperCase(),
+            dni: dni,
             phoneNumber: phoneNumber,
-            customerAdress: customerAdress,
-            customerEmail: customerEmail
+            customerAdress: customerAdress.toUpperCase(),
+            customerEmail: customerEmail.toUpperCase()
         }
 
         await this.fetchTurnosSelectDay({fecha: date+'-'+month+'-'+year});
-        console.log(this.state);
         
         if(fecha === '' ||  work === '----' || petName === '' || customerName === '' || customerAdress === '' || customerEmail === ''){
             alert('Debe Completar todos los campos.');
-        }else if(day === null || date === 0 || month === 0 || year === 0 || phoneNumber === 0){
+        }else if(day === null || date === 0 || month === 0 || year === 0 || phoneNumber === 0 || dni === 0){
             alert('Debe Completar todos los campos.');
         }else if(day === 0){
             alert('No hay turnos disponibles los días domingo y feriados.')
         }else if(this.state.selectDayTurns.length >= 6){
             alert('Ya no hay turnos disponibles el día seleccionado');
         }else{
-            this.postTurn(data);
-            alert('Turno confirmado con éxito.');
+            await this.postTurn(data);
             await this.getTurnos();
+            alert('Turno confirmado con éxito.');
         }
     }
     
@@ -127,10 +152,7 @@ class Request extends React.Component{
                             Bienvenido!!
                         </h1>
                         <p className="parrafo">
-                            Completa el siguiente formulario para tomar turno de peluquería.<br/><br/>La disponibilidad es de Lunes a Sábados.
-
-
-
+                            Completa el siguiente formulario para tomar turno de peluquería.<br/><br/>La disponibilidad es de Lunes a Sábados.</p>
                             <h3>
                                 Contáctanos:
                             </h3>
@@ -139,11 +161,10 @@ class Request extends React.Component{
                                 <li>Instagram</li>
                                 <li>Facebook</li>
                             </ul>
-                        </p>
                     </div>
                 </div>
                 <div className="form-section">
-                    <Form handleSend = {this.handleSend} handleChange={this.handleChange} onClickDay= {this.onClickDay}></Form>
+                    <Form handleSend = {this.handleSend} handleChange={this.handleChange} onClickDay= {this.onClickDay} daysToDisable={this.state.disableDays}></Form>
                 </div>
             </div>    
         )
