@@ -1,6 +1,6 @@
 import './App.css';
 import { Switch, Route } from "react-router-dom";
-import Principal from './screens/principal/principal';
+//import Principal from './screens/principal/principal';
 import Request from './screens/request/request';
 import Consulta from './screens/consulta/consulta.js';
 
