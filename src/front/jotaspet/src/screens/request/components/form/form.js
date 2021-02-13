@@ -31,7 +31,7 @@ class form extends React.Component{
             <form onSubmit={this.props.handleSend} className="form">
                 <h2 className="h2">Toma tu turno!</h2>
                 <div>
-                    <input onChange={this.props.handleChange} name="petName" className="input"  type="text" placeholder="Nombre mascota"/>
+                    <input onChange={this.props.handleChange} name="petName" className="input"  type="text"  placeholder="Nombre mascota"/>
                 </div>
                 <div>
                     <h4 className="h4">Qué quieres hacer?</h4>
@@ -45,10 +45,10 @@ class form extends React.Component{
                     <input onChange={this.props.handleChange} name="customerName" className="input" type="text" placeholder="Dueño"/>
                 </div>
                 <div>
-                    <input onChange={this.props.handleChange} name="dni" className="input" type="number" placeholder="Dni. Ej:40999666"/>
+                    <input onChange={this.props.handleChange} name="dni" className="input" type="number" minLength="8" maxLength="8" placeholder="Dni. Ej:40999666"/>
                 </div>
                 <div>
-                    <input onChange={this.props.handleChange} name="phoneNumber" className="input" type="number" placeholder="Teléfono. Ej: 11-4444-3333"/>
+                    <input onChange={this.props.handleChange} name="phoneNumber" className="input" type="number" minLength="10" maxLength="15" placeholder="Teléfono. Ej: 11-4444-3333"/>
                 </div>
                 <div>
                     <input onChange={this.props.handleChange} name="customerAdress" className="input" type="text" placeholder="Dirección. Ej: Av mitre 9999"/>

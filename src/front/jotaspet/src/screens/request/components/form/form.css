@@ -45,6 +45,10 @@
     border-bottom:2px solid #003ae4
 }
 
+.input:invalid{
+    border-bottom: red;
+}
+
 .p-select{
     margin: 20px 0 10px 0;
 }
