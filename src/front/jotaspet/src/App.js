@@ -8,14 +8,14 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path='/'>
+{        /*<Route exact path='/'>
           <Principal />
-        </Route>
-        <Route exact path='/turnos'>
-          <Request />
-        </Route>
+        </Route>*/}
         <Route exact path='/consulta'>
           <Consulta />
+        </Route>
+        <Route path='/'>
+          <Request />
         </Route>
       </Switch>  
     </div>

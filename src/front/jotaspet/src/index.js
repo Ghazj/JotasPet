@@ -6,9 +6,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
+  
   <React.StrictMode>
+      <div className="vidrio">
+      </div>
     <BrowserRouter>
-      <App />
+        <App />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -2,6 +2,7 @@ import React from 'react';
 import Listado from './components/listado/listado.js';
 import { fetchTurnosSelectDay } from '../../apis/fetchTurnosSelectDay.js';
 import Calendar from '../../globalComponents/calendar.js';
+import './consulta.css';
 
 class Consulta extends React.Component{
     constructor(props){
@@ -17,6 +18,7 @@ class Consulta extends React.Component{
     fetchTurnosSelectDay = async (data) =>{
         const res = await fetchTurnosSelectDay(data);
         this.setState({turnosEnPantalla: res.data});
+        console.log(res.data)
     }
 
     async componentDidMount() {
@@ -37,13 +39,12 @@ class Consulta extends React.Component{
 
     render(){
         return(
-            <>
-                <h1>{this.state.fechaActual.getDate() + '-' + (this.state.fechaActual.getMonth() + 1) + '-' + this.state.fechaActual.getFullYear()}</h1>
-                <h2>calendario para cambiar los turnos</h2>
+            <div className="consulta">
+                <h3 className="actual-date">{'Fecha: '+this.state.fechaActual.getDate() + '-' + (this.state.fechaActual.getMonth() + 1) + '-' + this.state.fechaActual.getFullYear()}</h3>
                 <Calendar onClickDay = {this.onClickDay}></Calendar>
-                <h2>Listado de turnos</h2>
+                <h3 className="actual-date">{'Fecha mostrada: '+ this.state.selectFecha}</h3>
                 <Listado turnosEnPantalla={this.state.turnosEnPantalla}></Listado>
-            </>
+            </div>
         )
     }
 }
